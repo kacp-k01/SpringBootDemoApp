@@ -3,8 +3,6 @@ package com.example.demo.student;
 import com.example.demo.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RestController
@@ -18,15 +16,16 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-
     @GetMapping
-    public List<Student> getStudents(){
-        throw new ApiRequestException("New exception");
-//        return studentService.getStudents();
-    }
+    public List<Student> getStudents() {
+        List<Student> allStudents = studentService.getStudents();
 
+        if (allStudents.isEmpty())
+            throw new ApiRequestException("No students to Show");
+        else return allStudents;
+    }
     @PostMapping
-    public void registerNewStudent(@RequestBody Student student){
+    public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
     }
 
