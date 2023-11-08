@@ -1,15 +1,14 @@
 package com.example.demo.student;
 
 import lombok.*;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 @Data
 @NoArgsConstructor
-@Entity
 @Table
+@Entity
 public class Student {
 
     @Id
@@ -27,6 +26,7 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
+    private LocalDate systemCreationTime = LocalDate.now();
 
     @Transient
     private Integer age;
@@ -39,5 +39,4 @@ public class Student {
     public Integer getAge() {
         return Period.between(this.dob, LocalDate.now()).getYears();
     }
-
 }
