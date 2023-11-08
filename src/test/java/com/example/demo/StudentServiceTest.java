@@ -2,7 +2,6 @@ package com.example.demo;
 
 import com.example.demo.student.Student;
 import com.example.demo.testconfig.BaseTest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
