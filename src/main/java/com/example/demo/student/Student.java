@@ -1,21 +1,19 @@
 package com.example.demo.student;
 
 import lombok.*;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 @Data
 @NoArgsConstructor
-@Entity
 @Table
+@Entity
 public class Student {
-
 
     @Id
     @SequenceGenerator(
-            name="student_sequence",
+            name = "student_sequence",
             sequenceName = "student_sequence",
             allocationSize = 1
     )
@@ -28,18 +26,10 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
-
-
+    private LocalDate systemCreationTime = LocalDate.now();
 
     @Transient
     private Integer age;
-
-    public Student(long id, String name, String email, LocalDate dob) {
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
-        this.id = id;
-    }
 
     public Student(String name, String email, LocalDate dob) {
         this.name = name;
@@ -47,7 +37,6 @@ public class Student {
         this.dob = dob;
     }
     public Integer getAge() {
-        return Period.between(this.dob,LocalDate.now()).getYears();
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
-
 }
