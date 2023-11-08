@@ -2,11 +2,15 @@ package com.example.demo;
 
 import com.example.demo.student.Student;
 import com.example.demo.testconfig.BaseTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.util.ArrayList;
+import static org.assertj.core.api.Assertions.assertThat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
@@ -14,10 +18,14 @@ public class StudentServiceTest extends BaseTest {
 
     @Test
     public void testGetStudents() {
-        List<Student> students = new ArrayList<>();
-        when(studentRepository.findAll()).thenReturn(students);
         List<Student> result = studentService.getStudents();
         verify(studentRepository, times(1)).findAll();
-        assertEquals(students, result);
+        assertEquals(1, result.size());
+        Student expected =  new Student("Mariam","mariam@gmail.com",
+                LocalDate.of(2000, Month.JANUARY,5));
+        assertThat(result.get(0))
+                .usingRecursiveComparison()
+                .ignoringFields("systemCreationTime")
+                .isEqualTo(expected);
     }
 }
